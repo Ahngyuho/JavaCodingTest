@@ -1,0 +1,15 @@
+import collections, heapq
+def solution(n):
+    answer=[]
+    def DFS(n):
+        if n==0:
+            return
+        else:
+            DFS(n//2)
+            answer.append(n%2)
+              
+    DFS(n)
+    return "".join(map(str, answer))
+   
+                                    
+print(solution(11))

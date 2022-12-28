@@ -1,0 +1,16 @@
+import collections
+def solution(nums):
+    n=len(nums)
+    answer=[0]*n
+    stack=[]
+    for i in range(n-1, -1, -1):
+        while stack and nums[i]>nums[stack[-1]]:
+            answer[stack[-1]]=i+1
+            stack.pop()
+        stack.append(i)
+            
+    return answer
+        
+        
+
+print(solution([50, 46, 55, 76, 65, 50, 55, 53, 55, 50]))

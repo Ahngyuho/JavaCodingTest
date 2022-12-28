@@ -1,0 +1,27 @@
+import collections
+def solution(words):
+    answer=[]
+    words.sort(key=lambda x : len(x))
+    sH=collections.defaultdict(int)
+    for x in words[0]:
+        sH[x]+=1
+    m=len(words)
+    for i in range(1, m):
+        tmp=collections.defaultdict(int)
+        for x in words[i]:
+            if sH[x]>0:
+                sH[x]-=1
+                tmp[x]+=1
+        sH=tmp
+    for [key, val] in sH.items():
+        for _ in range(val):
+            answer.append(key)
+        
+    return answer
+
+
+print(solution(["a", "aaa", "aaaaa"])) #['a']
+print(solution(["longlong", "longtong", "longbig"])) #['l', 'o', 'n', 'g', 'g']
+print(solution(["abcde", "edcba", "cdeba", "debac", "acbed"])) #['a', 'c', 'b', 'e', 'd']
+print(solution(["cool", "rock", "cook"])) #['c', 'o']
+print(solution(["aabbss", "bbbss", "csc", "asb"])) #['s']

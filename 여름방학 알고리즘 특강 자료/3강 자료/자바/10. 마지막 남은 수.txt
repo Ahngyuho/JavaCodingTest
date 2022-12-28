@@ -1,0 +1,24 @@
+import java.util.*;
+class Main {
+	public int solution(int[] nums){
+		int answer=0;
+		PriorityQueue<Integer> pQ = new PriorityQueue<>(Collections.reverseOrder());
+		for(int x : nums) pQ.offer(x);
+		while(pQ.size()>1){
+			int a=pQ.poll();
+			int b=pQ.poll();
+			if(a!=b) pQ.offer(a-b);
+		}
+		if(!pQ.isEmpty()) answer=pQ.poll();
+		return answer;
+		
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		int[] arr = new int[]{5, 2, 4, 3, 1};
+		System.out.println(T.solution(arr));
+		int[] arr1 = new int[]{7, 6, 3, 2, 4, 5, 1};
+		System.out.println(T.solution(arr1));
+	}
+}

@@ -1,0 +1,19 @@
+import collections
+def solution(call):
+    answer=""
+    tmp=call.lower()
+    sH=collections.defaultdict(int)
+    maxValue=-1
+    for x in tmp:
+        sH[x]+=1
+        if sH[x]>maxValue:
+            maxValue=sH[x]
+    for i, x in enumerate(tmp):
+        if maxValue>sH[x]:
+            answer+=call[i]
+    return answer
+
+print(solution("Abcabcdefabc"))
+print(solution("abxdeydeabz"))
+print(solution("abcabca"))
+print(solution("ABCabcA"))

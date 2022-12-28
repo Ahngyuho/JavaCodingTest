@@ -1,0 +1,24 @@
+import collections, heapq
+def solution(N, road, K):
+    answer=0
+    graph=[[] for _ in range(N+1)]
+    for a, b, c in road:
+        graph[a].append([b, c])
+        graph[b].append([a, c])
+    
+    dist=[10000000]*(N+1)
+    tree=[]
+    heapq.heappush(tree, [0, 1])
+    dist[1]=0
+    while tree:
+        nowcost, now = heapq.heappop(tree)
+        if nowcost>dist[now]:
+            continue
+        for nv, cost in graph[now]:
+            if nowcost+cost<dist[nv]:
+                dist[nv]=nowcost+cost
+                heapq.heappush(tree, [dist[nv], nv])
+    for x in dist:
+        if x<=K:
+            answer+=1
+    return answer

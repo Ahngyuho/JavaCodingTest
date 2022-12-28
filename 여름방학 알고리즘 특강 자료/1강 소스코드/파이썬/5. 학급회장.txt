@@ -1,0 +1,33 @@
+from collections import Counter
+def solution(s):
+    answer=""
+    sH={}
+    sH=Counter(s)
+    largest=0
+    for [key, val] in sH.items():
+        if val>largest:
+            largest=val
+            answer=key
+    
+    return answer
+
+print(solution("BACBACCACCBDEDE"))
+
+
+
+import collections
+def solution(s):
+    answer=""
+    sH=collections.defaultdict(int)
+    for x in s:
+        sH[x]+=1
+    largest=0
+    for key in sH:
+        if sH[key]>largest:
+            largest=sH[key]
+            answer=key
+    
+    return answer
+
+
+print(solution("BACBACCACCBDEDE"))

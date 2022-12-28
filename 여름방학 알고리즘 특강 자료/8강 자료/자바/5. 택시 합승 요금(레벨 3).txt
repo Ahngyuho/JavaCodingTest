@@ -1,0 +1,28 @@
+class Solution {
+    public int solution(int n, int s, int a, int b, int[][] fares) {
+        int answer=Integer.MAX_VALUE;
+        int[][] dy=new int[n+1][n+1];
+		for(int i=1; i<=n; i++){
+			for(int j=1; j<=n; j++){
+				if(i==j) dy[i][j]=0;
+				else dy[i][j]=2000000;
+			}
+		}
+		for(int[] x : fares){
+			dy[x[0]][x[1]]=x[2];
+            dy[x[1]][x[0]]=x[2];
+		}
+		for(int k=1; k<=n; k++){
+			for(int i=1; i<=n; i++){
+				for(int j=1; j<=n; j++){
+					if(dy[i][k]+dy[k][j]<dy[i][j]) 
+						dy[i][j]=dy[i][k]+dy[k][j];
+				}
+			}
+		}
+        for(int i = 1; i <= n; i++){
+            answer = Math.min(answer, dy[s][i] + dy[i][a] + dy[i][b]);
+        }
+        return answer;
+    }
+}

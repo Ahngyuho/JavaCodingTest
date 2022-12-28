@@ -1,0 +1,36 @@
+import java.util.*;
+class Main {
+	public ArrayList<Character> solution(String[] words){
+		ArrayList<Character> answer = new ArrayList<>();
+		HashMap<Character, Integer> map=new HashMap<>();
+		for(char x : words[0].toCharArray()){
+			map.put(x, map.getOrDefault(x, 0)+1); 
+		}
+		
+		for(int i=1; i<words.length; i++){
+			HashMap<Character, Integer> tmp=new HashMap<>();
+			for(char x : words[i].toCharArray()){
+				if(map.getOrDefault(x, 0)>0){
+					map.put(x, map.get(x)-1);
+					tmp.put(x, tmp.getOrDefault(x, 0)+1);
+				}
+			}
+			map=new HashMap<Character, Integer>(tmp);
+		}
+		for(char key : map.keySet()){
+			for(int i=0; i<map.get(key); i++){
+				answer.add(key);
+			}
+
+		}
+		return answer;
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		String[] tmp = new String[]{"steasue", "sasseysu", "kseseas"};
+		System.out.println(T.solution(tmp));
+		String[] tmp1 = new String[]{"longlong", "longtong", "longbig"};
+		System.out.println(T.solution(tmp1));
+	}
+}

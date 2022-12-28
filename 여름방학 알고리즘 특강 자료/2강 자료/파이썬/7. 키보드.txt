@@ -1,0 +1,23 @@
+def solution(s, n):
+    used = [0] * 27
+    for ele in s:
+        if ele.islower():
+            used[ord(ele)-97] = 1
+        elif ele.isupper():
+            used[26] = 1
+            used[ord(ele)-65] = 1
+            
+    cnt = 0    
+    for i in range(27):
+        if used[i] == 1:
+            cnt += 1
+
+    if cnt <= n:
+        return len(s)
+    else:
+        return -1
+    
+print(solution("time to time", 5))
+print(solution("time to study", 7))
+print(solution("Big Life is Good", 10))
+print(solution("Life is Good", 7))

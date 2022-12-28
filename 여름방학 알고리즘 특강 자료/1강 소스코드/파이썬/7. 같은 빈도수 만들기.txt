@@ -1,0 +1,19 @@
+import collections
+def solution(s):
+    answer=[]
+    sH=collections.Counter(s)
+    tmp="abc"
+    maxN=float("-inf")
+    for x in tmp:
+        if sH[x]>maxN:
+            maxN=sH[x]
+    for x in tmp:
+        answer.append(maxN-sH[x])
+    return answer
+
+
+print(solution("aaabc"))#[0, 2, 2]
+print(solution("bbcaabccca"))#[1, 1, 0]
+print(solution("caaabccbbccccccaaaaa"))#[1, 6, 0]
+print(solution("bbbbbbbbbbbb"))#[12, 0, 12]
+print(solution("abc"))#[0, 0, 0]

@@ -1,0 +1,25 @@
+import java.util.*;
+class Main {
+	public int[] solution(int[] nums){
+		int n=nums.length;
+		int[] answer=new int[n];
+		Stack<Integer> stack = new Stack<>();
+		for(int i=n-1; i>=0; i--){
+			while(!stack.empty() && nums[i]>nums[stack.peek()]){
+				answer[stack.peek()]=i+1;
+				stack.pop();
+			}
+			stack.push(i);
+		}
+		return answer;
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		int[] arr = new int[]{50, 46, 55, 76, 65, 50, 55, 53, 55, 50};
+		//System.out.println(T.solution(arr));
+		for(int x : T.solution(arr)){
+			System.out.print(x+" ");
+		}	
+	}
+}

@@ -1,0 +1,20 @@
+def solution(s):
+    answer="YES"
+    lt=0
+    rt=len(s)-1
+    while(lt<rt):
+        if s[lt]!=s[rt]:
+            sub1=s[lt:rt]
+            sub2=s[lt+1:rt+1]
+            if sub1!=sub1[::-1] and sub2!=sub2[::-1]:
+                answer="NO"
+            break
+        else:
+            lt+=1
+            rt-=1
+    return answer
+       
+    
+print(solution("abcacbakcba"))
+print(solution("abcabbakcba"))
+

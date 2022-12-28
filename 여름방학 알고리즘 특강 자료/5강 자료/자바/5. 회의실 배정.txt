@@ -1,0 +1,20 @@
+import java.util.*;
+class Main {
+	public int solution(int[][] times){
+		int answer=0;
+		Arrays.sort(times, (a, b)->a[1]==b[1]?a[0]-b[0]:a[1]-b[1]);
+		int et=0;
+		for(int[] x : times){
+			if(x[0]>=et){
+				answer++;
+				et=x[1];
+			}
+		}	
+		return answer;
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		System.out.println(T.solution(new int[][]{{1, 4}, {2, 3}, {3, 5}, {4, 6}, {5, 7}}));
+	}
+}

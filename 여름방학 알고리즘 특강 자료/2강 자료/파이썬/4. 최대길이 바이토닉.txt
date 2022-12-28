@@ -1,0 +1,21 @@
+def solution(nums):
+    answer=0
+    peaks=[]
+    n=len(nums)
+    for i in range(1, n-1):
+        if nums[i-1]<nums[i] and nums[i]>nums[i+1]:
+            peaks.append(i)
+    for pos in peaks:
+        lt=pos
+        rt=pos
+        cnt=1
+        while lt>=1 and nums[lt-1]<nums[lt]:
+            cnt+=1
+            lt-=1
+        while rt<n-1 and nums[rt]>nums[rt+1]:
+            cnt+=1
+            rt+=1
+        answer=max(answer, cnt)
+    return answer
+
+print(solution([1, 3, 2, 5, 7, 4, 2, 5, 1]))

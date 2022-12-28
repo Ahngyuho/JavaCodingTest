@@ -1,0 +1,32 @@
+import java.util.*;
+class Main {
+	public int solution(int[] apples, int[] power, int m){
+		int answer=0;
+		int sum=0;
+		for(int i=0; i<apples.length; i++){
+			if(power[i]==1) sum+=apples[i];
+		}
+		for(int i=0; i<m; i++){
+			if(power[i]==0) sum+=apples[i];
+		}
+		
+		answer=sum;
+		int lt=0;
+		for(int rt=m; rt<apples.length; rt++){
+			if(power[rt]==0) sum+=apples[rt];
+			if(power[lt]==0) sum-=apples[lt];
+			lt++;
+			answer=Math.max(answer, sum);
+		}
+
+		return answer;
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		int[] arr1 = new int[]{3, 2, 1, 2, 1, 3};
+		int[] arr2 = new int[]{1, 0, 0, 1, 0, 0};
+		System.out.println(T.solution(arr1, arr2, 3));
+		
+	}
+}

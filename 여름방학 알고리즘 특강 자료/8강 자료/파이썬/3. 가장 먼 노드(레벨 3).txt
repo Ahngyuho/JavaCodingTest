@@ -1,0 +1,28 @@
+import collections, heapq
+
+def solution(n, edges):
+    answer=0
+    graph=[[] for _ in range(n+1)]
+    for a, b in edges:
+        graph[a].append(b)
+        graph[b].append(a)
+    
+    dist=[100000]*(n+1)
+    tree=[]
+    heapq.heappush(tree, [0, 1])
+    dist[1]=0
+    dist[0]=0
+    while tree:
+        nowcost, now = heapq.heappop(tree)
+        if nowcost>dist[now]:
+            continue
+        for nv in graph[now]:
+            if nowcost+1<dist[nv]:
+                dist[nv]=nowcost+1
+                heapq.heappush(tree, [dist[nv], nv])
+
+    maxD=max(dist)
+    for x in dist:
+        if x==maxD:
+            answer+=1
+    return answer

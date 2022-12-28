@@ -1,0 +1,19 @@
+import java.util.*;
+class Main {
+	public String solution(int[] nums){
+		String answer="YES";
+		int n=nums.length;
+		int i=0;
+		while(i+1<n && nums[i]<nums[i+1]) i++;
+		if(i==0 || i==n-1) return "NO";
+		while(i+1<n && nums[i]>nums[i+1]) i++;
+		if(i!=n-1) return "NO";
+		return answer;	
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		int[] arr = new int[]{1, 2, 3, 4, 5, 3, 1};
+		System.out.println(T.solution(arr));
+	}
+}

@@ -1,0 +1,37 @@
+import collections, heapq
+def solution(cans):
+    answer=float('inf')
+    n=len(cans)
+    ch=[0]*n
+
+    def DFS(L, s):
+        nonlocal answer, n
+        if L==n//2:
+            A=[]
+            B=[]
+            for i in range(n):
+                if ch[i]==1:
+                    A.append(i)
+                else:
+                    B.append(i)
+            Asum=0
+            Bsum=0
+            for i in range(len(A)):
+                Asum+=cans[A[i]][0]
+                Bsum+=cans[B[i]][1]
+
+            answer=min(answer, abs(Asum-Bsum))
+        else:
+            for i in range(s, n):
+                ch[i]=1
+                DFS(L+1, i+1)
+                ch[i]=0
+                
+    DFS(0, 0)
+    return answer
+        
+   
+
+
+print(solution([[87, 84], [66, 78], [94, 94], [93, 87], [72, 92], [78, 63]]));
+

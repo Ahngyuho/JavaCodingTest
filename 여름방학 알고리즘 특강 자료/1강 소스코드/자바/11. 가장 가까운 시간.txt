@@ -1,0 +1,33 @@
+import java.util.*;
+class Main {
+	public int getTime(String time){
+		String[] tmp = time.split(":");
+		int H=Integer.parseInt(tmp[0]);
+		int M=Integer.parseInt(tmp[1]);
+		return H*60+M;
+	}
+
+	public int solution(String[] times){
+		int answer=0;
+		ArrayList<Integer> tmp = new ArrayList<>();
+		for(int i=0; i<times.length; i++){
+			tmp.add(getTime(times[i]));
+		}
+		Collections.sort(tmp);
+		answer=Integer.MAX_VALUE;
+		for(int i=1; i<tmp.size(); i++){
+			answer=Math.min(answer, tmp.get(i)-tmp.get(i-1));
+		}
+		answer=Math.min(answer, 60*24+tmp.get(0)-tmp.get(tmp.size()-1));
+		
+		return answer;
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		String[] tmp = new String[]{"00:12","00:00", "01:05", "00:57"};
+		System.out.println(T.solution(tmp));
+		String[] tmp1 = new String[]{"00:00","23:59","00:00"};
+		System.out.println(T.solution(tmp1));
+	}
+}

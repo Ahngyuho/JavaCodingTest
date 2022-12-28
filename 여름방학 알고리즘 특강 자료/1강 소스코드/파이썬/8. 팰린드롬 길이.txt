@@ -1,0 +1,16 @@
+function solution(s){  
+    let sH = new Map();
+    for(let x of s){
+        sH.set(x, (sH.get(x) || 0)+1);
+    }
+    let cnt=0;
+    for(let val of sH.values()){
+        if(val%2===1) cnt++;
+    }
+    return cnt>0 ? (s.length+1)-cnt : s.length;
+}
+console.log(solution("abccccdd"));
+console.log(solution("ab"));
+console.log(solution("bb"));
+console.log(solution("ccc"));
+console.log(solution("abcde"));

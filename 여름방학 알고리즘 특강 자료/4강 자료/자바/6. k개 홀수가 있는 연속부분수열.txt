@@ -1,0 +1,29 @@
+import java.util.*;
+class Main {
+	public int Counting(int[] nums, int k){
+		int answer=0;
+		int cnt=0;
+		int lt=0; 
+		for(int rt=0; rt<nums.length; rt++){
+			if(nums[rt]%2==1) cnt++;
+			while(cnt>k){
+				if(nums[lt]%2==1) cnt--;
+				lt++;
+			}
+			answer+=(rt-lt+1);
+		}
+		return answer;
+	}
+
+	public int solution(int[] nums, int k){
+		int answer=Counting(nums, k)-Counting(nums, k-1);
+		return answer;
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		int[] arr = new int[]{2, 2, 2, 1, 2, 2, 1, 2, 2, 2};
+		System.out.println(T.solution(arr, 2));
+		
+	}
+}

@@ -1,0 +1,24 @@
+import collections, heapq
+def solution(nums, m):
+    n=len(nums)
+    answer=[]
+    tmp=[]
+    ch=[0]*n
+    
+    def DFS(L):
+        if L==m:
+            answer.append(tmp.copy())
+        else:
+            for i in range(n):
+                if ch[i]==0:
+                    ch[i]=1
+                    tmp.append(nums[i])
+                    DFS(L+1)
+                    ch[i]=0
+                    tmp.pop()            
+              
+    DFS(0)
+    return answer
+    
+                                     
+print(solution([3, 6, 9], 2))

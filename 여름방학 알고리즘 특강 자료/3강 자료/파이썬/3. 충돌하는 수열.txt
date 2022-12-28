@@ -1,0 +1,30 @@
+def solution(nums):
+    stack=[]
+    for x in nums:
+        if x>0:
+            stack.append(x)
+        else:
+            if not stack or stack[-1]<0:
+                stack.append(x)
+            else:
+                flag=0
+                while stack and stack[-1]>0:
+                    left=stack.pop()
+                    if abs(x)>left:
+                        flag=1
+                    elif abs(x)==left:
+                        flag=0
+                        break
+                    else:
+                        stack.append(left)
+                        flag=0
+                        break
+                if flag==1:
+                    stack.append(x)
+                          
+    return stack
+
+print(solution([3, 5, -2, -5]))
+print(solution([-2, -1, -3,  1, 3]))
+print(solution([-2, -1,  2, 1, -3, 2]))
+

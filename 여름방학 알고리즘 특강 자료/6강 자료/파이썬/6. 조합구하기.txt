@@ -1,0 +1,39 @@
+function solution(n, m){         
+    let answer=[];
+    let tmp=[];
+    function DFS(L, s){
+        if(L===m){
+            answer.push(tmp.slice()); 
+        }
+        else{
+            for(let i=s; i<=n; i++){
+                tmp.push(i);
+                DFS(L+1, i+1);
+                tmp.pop();
+            }
+        }
+    }
+    DFS(0, 1);
+    return answer;
+}
+
+console.log(solution(4, 2));
+
+
+//조합으로 부분집합 구하기
+function solution(n){  
+    let answer=[], tmp=[];
+    function DFS(s){
+        let res="";
+        for(let x of tmp) res+=x;
+        console.log(res);
+        for(let i=s; i<=n; i++){
+            tmp.push(i);
+            DFS(i+1);
+            tmp.pop();
+        }
+    }
+    DFS(1);
+    return answer;
+}
+console.log(solution(3));

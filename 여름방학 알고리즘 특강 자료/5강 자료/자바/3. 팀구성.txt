@@ -1,0 +1,39 @@
+import java.util.*;
+class Main {
+	public int solution(int[] abilities, int k){
+		int answer=0;
+		int n=abilities.length;
+		Integer[] tmp;
+		if(n%2==1){
+			n++;
+			tmp = new Integer[n];
+			for(int i=0; i<abilities.length; i++)
+				tmp[i]=abilities[i];
+			tmp[n-1]=0;
+		}
+		else{
+			tmp = new Integer[n];
+			for(int i=0; i<abilities.length; i++)
+				tmp[i]=abilities[i];
+		}
+		Arrays.sort(tmp, Collections.reverseOrder());
+		Integer[] diff = new Integer[n/2];
+		for(int i=0; i<n/2; i++){
+			diff[i]=tmp[i*2]-tmp[i*2+1];
+		}
+		Arrays.sort(diff, Collections.reverseOrder());
+		for(int i=0; i<n/2; i++){
+			answer+=tmp[i*2+1];
+		}
+		for(int i=0; i<k; i++){
+			answer+=diff[i];
+		}
+		return answer;
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		System.out.println(T.solution(new int[]{2, 8, 3, 6, 1, 9, 1, 9}, 2));
+		System.out.println(T.solution(new int[]{7, 6, 8, 9, 10}, 1));
+	}
+}

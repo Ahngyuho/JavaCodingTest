@@ -1,0 +1,35 @@
+import java.util.*;
+class Main {
+	public ArrayList<Integer> solution(int n, int[][] votes, int k){
+		ArrayList<Integer> answer=new ArrayList<>();
+		int[][] report = new int[n][n];
+		int[] candidate = new int[n];
+		for(int[] x: votes){
+			report[x[0]][x[1]]=1;
+		}
+		for(int i=0; i<n; i++){
+			int cnt=0;
+			for(int j=0; j<n; j++){
+				if(report[j][i]==1) cnt++;
+			}
+			if(cnt>=k) candidate[i]=1;
+		}
+		for(int i=0; i<n; i++){
+			int cnt=0;
+			for(int j=0; j<n; j++){
+				if(report[i][j]==1 && candidate[j]==1) cnt++;
+			}
+			answer.add(cnt);
+		}
+
+		return answer;
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		int[][] arr={{0, 1}, {0, 3}, {1, 2}, {2, 0}, {2, 3}, {3, 0}};
+
+		System.out.println(T.solution(4, arr, 2));
+		
+	}
+}

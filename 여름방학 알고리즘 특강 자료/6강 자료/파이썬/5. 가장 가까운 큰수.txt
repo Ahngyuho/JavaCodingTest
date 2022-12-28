@@ -1,0 +1,47 @@
+def solution(n):
+    nums=[]
+    tmp=n
+    while tmp>0:
+        t=tmp%10
+        nums.append(t)
+        tmp=tmp//10
+    nums.sort()
+    length=len(nums)
+    ch=[0]*length
+    p=[]
+    global flag, answer
+    flag=0
+    def DFS(L):
+        global flag, answer
+        if flag==1:
+            return
+        if L==length:
+            answer=0
+            for i in range(L):
+                answer=answer*10+p[i]
+            if answer>n:
+                flag=1
+        else:
+            for i in range(length):
+                if ch[i]==0:
+                    ch[i]=1
+                    p.append(nums[i])
+                    DFS(L+1)
+                    ch[i]=0
+                    p.pop()
+    DFS(0)
+    if flag==0:
+        return -1
+    return answer
+    
+
+
+
+    
+
+print(solution(27711)); #71127
+print(solution(54312)); #54321
+print(solution(765423)); #765432
+print(solution(33051)); #33105
+print(solution(54321)); #-1
+

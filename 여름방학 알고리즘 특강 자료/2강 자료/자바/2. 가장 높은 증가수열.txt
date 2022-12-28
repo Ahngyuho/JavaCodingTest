@@ -1,0 +1,23 @@
+import java.util.*;
+class Main {
+	public int solution(int[] nums){
+		int answer=0, height=0;
+		for(int i=1; i<nums.length; i++){
+			if(nums[i-1]<nums[i]){
+				height+=(nums[i]-nums[i-1]);
+			}
+			else{
+				answer=Math.max(answer, height);
+				height=0;
+			}
+		}
+		answer=Math.max(answer, height);
+		return answer;	
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		int[] arr = new int[]{8, 12, 2, 3, 7, 6, 12, 20, 3};
+		System.out.println(T.solution(arr));
+	}
+}

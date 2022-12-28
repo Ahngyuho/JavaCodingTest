@@ -1,0 +1,15 @@
+class Solution:
+    def solution(nums, k):
+        answer=sum(nums)
+        m=len(nums)-k
+        s=0
+        for i in range(m):
+            s+=nums[i]
+        mins=s
+        for i in range(m, len(nums)):
+            s+=(nums[i]-nums[i-m])
+            if s<mins:
+                mins=s
+        
+        return answer-mins
+        

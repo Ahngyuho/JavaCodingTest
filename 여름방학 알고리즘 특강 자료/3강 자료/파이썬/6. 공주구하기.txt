@@ -1,0 +1,14 @@
+import collections
+def solution(n, k):
+    tmp=range(1, n+1)
+    dQ=collections.deque(tmp)
+
+    while dQ:
+        for _ in range(k-1):
+            dQ.append(dQ.popleft())
+        dQ.popleft()
+        if len(dQ)==1:
+            return dQ.popleft()
+    
+    
+print(solution(8, 3))

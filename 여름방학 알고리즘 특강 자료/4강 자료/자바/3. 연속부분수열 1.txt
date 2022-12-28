@@ -1,0 +1,24 @@
+import java.util.*;
+class Main {
+	public int solution(int[] nums, int m){
+		int answer=0;
+		int sum=0;
+		int lt=0;
+		for(int rt=0; rt<nums.length; rt++){
+			sum+=nums[rt];
+			while(sum>m){
+				sum-=nums[lt];
+				lt++;
+			}
+			if(sum==m) answer++;
+		}
+		return answer;
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		int[] arr = new int[]{1, 2, 1, 2, 1, 2, 1};
+		System.out.println(T.solution(arr, 3));
+		
+	}
+}

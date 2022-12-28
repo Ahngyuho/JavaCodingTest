@@ -1,0 +1,38 @@
+import java.util.*;
+class Main {
+	public int solution(int[] nums){
+		int answer=0;
+		int n=nums.length;
+		int[] dist = new int[n];
+		int d=1000;
+		for(int i=0; i<nums.length; i++){
+			if(nums[i]==1){
+				d=0;
+				dist[i]=d;
+			}
+			else{
+				d++;
+				dist[i]=d;
+			}
+		}
+		d=1000;
+		for(int i=n-1; i>=0; i--){
+			if(nums[i]==1) d=0;
+			else{
+				d++;
+				dist[i]=Math.min(dist[i], d);
+			}
+		}
+
+		for(int x : dist){
+			answer=Math.max(answer, x);
+		}
+		return answer;	
+	}
+
+	public static void main(String[] args){
+		Main T = new Main();
+		int[] arr = new int[]{1, 0, 0, 0, 1, 0, 0, 1, 0, 1};
+		System.out.println(T.solution(arr));
+	}
+}

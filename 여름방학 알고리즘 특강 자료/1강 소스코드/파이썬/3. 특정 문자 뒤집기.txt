@@ -1,0 +1,18 @@
+def solution(s):
+    answer=list(s)
+    lt=0
+    rt=len(s)-1
+    while(lt<rt):
+        if not answer[lt].isalpha():
+            lt+=1
+        elif not answer[rt].isalpha():
+            rt-=1
+        else:
+            tmp=answer[lt]
+            answer[lt]=answer[rt]
+            answer[rt]=tmp
+            lt+=1
+            rt-=1
+    return "".join(answer)
+
+print(solution("a#b!GE*T@S"))
