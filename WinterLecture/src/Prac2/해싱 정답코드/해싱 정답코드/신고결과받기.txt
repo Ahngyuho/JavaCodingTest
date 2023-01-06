@@ -1,0 +1,25 @@
+import java.util.*;
+class Solution {
+    public int[] solution(String[] id_list, String[] report, int k){
+        int[] answer = new int[id_list.length];
+        HashMap<String, HashSet<String>> reportHash = new HashMap<>();
+        HashMap<String, Integer> stoped = new HashMap<>();
+        HashSet<String> reportSet = new HashSet<>(Arrays.asList(report));
+        for(String x : reportSet){
+            String a = x.split(" ")[0];
+            String b = x.split(" ")[1];
+            reportHash.putIfAbsent(a, new HashSet<String>());
+            reportHash.get(a).add(b);
+            stoped.put(b, stoped.getOrDefault(b, 0) + 1);
+        }
+        for(int i = 0; i < id_list.length; i++){
+            int cnt = 0;
+            if(reportHash.get(id_list[i]) == null) continue;
+            for(String user : reportHash.get(id_list[i])){
+                if(stoped.get(user) >= k) cnt++;
+            }
+            answer[i] = cnt;
+        }
+        return answer;
+   }
+}
