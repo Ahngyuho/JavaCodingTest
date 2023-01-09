@@ -26,7 +26,7 @@ public class Prob5 {
         }
     }
 
-    public ArrayList<String> solution(String[] reports, String times) {
+    public String[] solution(String[] reports, String times) {
         ArrayList<String> answer = new ArrayList<>();
         ArrayList<Person> tmp = new ArrayList<>();
 
@@ -55,7 +55,12 @@ public class Prob5 {
             }
         }
 
-        return answer;
+        String[] ans = new String[answer.size()];
+        for (int i = 0; i < answer.size(); i++) {
+            ans[i] = answer.get(i);
+        }
+
+        return ans;
     }
 
     public static void main(String[] args) {
