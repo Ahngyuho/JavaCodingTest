@@ -3,7 +3,7 @@ package Prac3;
 import java.util.*;
 
 public class Prob6 {
-
+    long answer;
     boolean isPossible(int[] nums,long num,int target){
         int res = 0;
         for (int i = 0; i < nums.length; i++) {
@@ -14,28 +14,28 @@ public class Prob6 {
         return false;
     }
 
-    long binarySearch(int[] nums,long start, long end, int target) {
-        long height = 0;
-        if(end >= start){
-            long mid = (start + end) / 2;
+    long solution(int[] nums, int n) {
+        Arrays.sort(nums);
 
-            if(isPossible(nums,mid,target)) {
+        long height = 0;
+        long start = 1;
+        long end = nums[nums.length-1];
+
+        while (end >= start) {
+            long mid = (start + end) / 2;
+            if(isPossible(nums,mid,n)){
                 height = mid;
-                return binarySearch(nums, mid + 1, end, target);
+                start = mid + 1;
+            }else{
+                end = mid - 1;
             }
-            else if(!isPossible(nums,mid,target)) return binarySearch(nums,start,mid - 1,target);
         }
 
         return height;
     }
 
-    long solution(int[] nums, int n) {
-        Arrays.sort(nums);
-        return binarySearch(nums, 0, Integer.MAX_VALUE, n);
-    }
-
     public static void main(String[] args) {
         Prob6 T = new Prob6();
-        System.out.println(T.solution(new int[]{802, 743, 457, 539},11));
+        System.out.println(T.solution(new int[]{93, 97, 93, 53, 75, 57, 85, 89, 67},30));
     }
 }

@@ -29,10 +29,18 @@ public class Prob3 {
         int gTime = 0;
 
         for (int i = 0; i < platTime.length; i++) {
-            pTime += platTime[i];
-            if(pTime + growTime[i] > gTime) gTime = pTime + growTime[i];
+            pTime += tmp[i][0];
+            if(pTime + tmp[i][1] > gTime) gTime = pTime + tmp[i][1];
         }
 
-        return answer;
+        return gTime;
+    }
+
+    public static void main(String[] args) {
+        Prob3 T = new Prob3();
+        System.out.println(T.solution(new int[]{2, 1, 4, 3}, new int[]{2, 5, 3, 1}));
+        System.out.println(T.solution(new int[]{1,1,1}, new int[]{7,3,2}));
+        System.out.println(T.solution(new int[]{5, 7, 10, 15, 7, 3, 5}, new int[]{6, 7, 2, 10, 15, 6, 7}));
+        System.out.println(T.solution(new int[]{1, 2, 3, 4, 5, 6, 7}, new int[]{7, 5, 4, 3, 2, 1, 6}));
     }
 }
