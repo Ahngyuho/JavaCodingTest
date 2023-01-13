@@ -1,0 +1,25 @@
+import java.util.*;
+class Solution {
+	public int solution(String s, int k){
+		int answer = 300000;
+		HashMap<Character, Integer> nH = new HashMap<>();
+		int left = 0;
+		for(int right = 0; right < s.length(); right++){
+			nH.put(s.charAt(right), nH.getOrDefault(s.charAt(right), 0) + 1);
+			while(nH.size() == k){
+				answer = Math.min(answer, right-left+1);
+				nH.put(s.charAt(left), nH.get(s.charAt(left)) - 1);
+				if(nH.get(s.charAt(left)) == 0) nH.remove(s.charAt(left));
+				left++;
+			}
+		}
+		return answer;
+	}
+
+	public static void main(String[] args){
+		Solution T = new Solution();
+		System.out.println(T.solution("abacbbcdede" , 5));
+		System.out.println(T.solution("acbbcdbbedeade", 4));
+		System.out.println(T.solution("abcabcabcbebef", 5));
+	}
+}

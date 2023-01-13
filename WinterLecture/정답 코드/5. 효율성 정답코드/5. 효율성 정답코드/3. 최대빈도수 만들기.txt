@@ -1,0 +1,24 @@
+import java.util.*;
+class Solution {
+	public int solution(int[] nums, int k){
+		int answer = 0;
+		Arrays.sort(nums);
+		int sum = 0;
+		int left = 0;
+		for(int right = 0; right < nums.length; right++){
+			sum += nums[right];
+			while(nums[right] * (right-left+1) > sum + k){
+				sum -= nums[left];
+				left++;
+			}
+			answer = Math.max(answer, right - left + 1);
+		}
+		return answer;
+	}
+
+	public static void main(String[] args){
+		Solution T = new Solution();
+		System.out.println(T.solution(new int[]{1, 2, 4, 7}, 5));
+		System.out.println(T.solution(new int[]{5, 7, 8, 2, 9, 6, 3}, 10));
+	}
+}
