@@ -50,7 +50,7 @@ public class Prob1 {
 
     public static void main(String[] args) {
         Prob1 T = new Prob1();
-        System.out.println(T.solution("aaaabb"));
+        System.out.println(T.solution("aaaaacbb"));
         //System.out.println(T.solution("abbcc"));
         //System.out.println(T.solution("abbccee"));
         //System.out.println(T.solution("abbcceee"));
