@@ -11,11 +11,13 @@ public class Prob3 {
     int[] dx={-1, 0, 1, 0};
     int[] dy={0, 1, 0, -1};
     int solution(int[][] board){
+        int L = 0;
         Queue<Point> Q = new LinkedList<>();
         int[][] dis = new int[7][7];
         Q.add(new Point(0,0));
         board[0][0] = 1;
         while(!Q.isEmpty()){
+            L++;
             Point p = Q.poll();
             for (int i = 0; i < 4; i++) {
                 int ddx = dx[i] + p.x;
@@ -23,7 +25,7 @@ public class Prob3 {
                 if(ddx >= 0 && ddx <=6 && ddy >= 0 && ddy <= 6 && board[ddx][ddy] == 0) {
                     board[ddx][ddy] = 1;
                     Q.offer(new Point(ddx, ddy));
-                    dis[ddx][ddy] = dis[p.x][p.y] + 1;
+                    dis[ddx][ddy] = L;
                 }
             }
         }
