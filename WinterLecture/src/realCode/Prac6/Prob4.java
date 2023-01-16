@@ -38,13 +38,12 @@ public class Prob4 {
     int[] solution(int[] nn){
         Pos[] a = new Pos[10];
         Pos[] b = new Pos[10];
-        int n = nums.length;
+        int n = nn.length;
         Pos[] nums = new Pos[n];
 
         for(int i=0;i<10;i++) a[i] = new Pos(nn[i],i,0);
 
         divide(0,n-1,nums);
-        Pos
         for(int i=0;i<=n;i++) System.out.println(nums[i] + " ");
         return new int[]{};
     }
