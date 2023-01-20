@@ -1,4 +1,4 @@
-package Prac8;
+package realCode.Prac8;
 
 import java.util.*;
 

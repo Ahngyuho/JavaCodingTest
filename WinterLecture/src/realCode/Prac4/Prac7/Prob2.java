@@ -1,4 +1,4 @@
-package realCode.Prac7;
+package realCode.Prac4.Prac7;
 
 import java.util.*;
 

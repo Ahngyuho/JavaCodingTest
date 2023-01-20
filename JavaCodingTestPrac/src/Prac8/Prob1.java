@@ -1,33 +1,46 @@
 package Prac8;
-
 import java.util.*;
-
 public class Prob1 {
-    int solution(int[] nums){
-        int answer = 0;
-        HashSet<Integer> hs = new HashSet<>();
-        for(int x : nums){
-            hs.add(x);
+    class Edge implements Comparable<Edge>{
+        public int vex;
+        public int cost;
+        Edge(int vex,int cost){
+            this.vex = vex;
+            this.cost = cost;
         }
-        for (int i = 0; i < nums.length; i++) {
-            if(!hs.contains(nums[i] - 1)){
-                int cnt = 1;
-                int tmp = nums[i];
-                while(hs.contains(tmp)){
-                    cnt++;
-                    tmp++;
+        @Override
+        public int compareTo(Edge o){
+            return this.cost - o.cost;
+        }
+    }
+    public int solution(int n,int[][] edges,int end){
+        ArrayList<ArrayList<Edge>> graph = new ArrayList<>();
+        for(int i=0;i<=n;i++) graph.add(new ArrayList<Edge>());
+        int[] dis = new int[n+1];
+        Arrays.fill(dis,Integer.MAX_VALUE);
+        for(int[] x : edges){
+            graph.get(x[0]).add(new Edge(x[1],x[2]));
+        }
+        PriorityQueue<Edge> pQ = new PriorityQueue<>();
+        pQ.offer(new Edge(1,0));
+        dis[1] = 0;
+        while(!pQ.isEmpty()){
+            Edge tmp = pQ.poll();
+            int now = tmp.vex;
+            int nowCost = tmp.cost;
+            if(nowCost > dis[now]) continue;
+            for(Edge ob : graph.get(now)){
+                if(dis[ob.vex] > nowCost + ob.cost){
+                    dis[ob.vex] = nowCost + ob.cost;
+                    pQ.offer(new Edge(ob.vex,dis[ob.vex]));
                 }
-                answer  = Math.max(answer,cnt);
             }
         }
-        return --answer;
+        return dis[end] == Integer.MAX_VALUE? -1: dis[end];
     }
-
     public static void main(String[] args) {
         Prob1 T = new Prob1();
-        System.out.println(T.solution(new int[]{8, 1, 9, 3, 10, 2, 4, 0, 2, 3}));
-        System.out.println(T.solution(new int[]{-5, -3, -1, -4, 3, 3, 5, 6, 2, 2, 1, 1, 7}));
-        System.out.println(T.solution(new int[]{3, 3, 3, 3, 3, 3, 3, 3}));
-        System.out.println(T.solution(new int[]{-3, -1, -2, 0, 3, 3, 5, 6, 2, 2, 1, 1}));
+        System.out.println(T.solution(6, new int[][]{{1, 2, 12}, {1, 3, 4},
+                {2, 1, 2}, {2, 3, 5}, {2, 5, 5}, {3, 4, 5}, {4, 2, 2}, {4, 5, 5}, {6, 4, 5}}, 5));
     }
 }

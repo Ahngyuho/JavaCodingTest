@@ -1,0 +1,21 @@
+def solution(tasks, k):
+    tasks.insert(0, 0)
+    sT = tasks.copy()
+    sT.sort()
+    rest = len(tasks) - 1
+    for i in range(1, len(sT)):
+        if k < (rest * (sT[i] - sT[i-1])):
+            idx = k % rest
+            cnt = 0
+            for j in range(1, len(tasks)):
+                if tasks[j] >= sT[i]:
+                    if cnt == idx:
+                        return j
+                    cnt+=1
+        else:
+            k -= (rest * (sT[i] - sT[i-1]))
+            rest-=1
+    return -1
+    
+print(solution([1, 2, 3], 5)); 
+print(solution([8, 5, 2, 9, 10, 7], 30));
