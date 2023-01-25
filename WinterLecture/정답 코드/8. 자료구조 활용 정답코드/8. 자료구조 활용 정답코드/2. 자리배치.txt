@@ -1,0 +1,44 @@
+import java.util.*;
+class Info implements Comparable<Info>{
+	public int cnt;
+    public Character alpa;	
+    Info(int cnt, Character alpa){
+		this.cnt = cnt;
+        this.alpa = alpa;
+    }
+    @Override
+    public int compareTo(Info ob){
+		if(this.cnt == ob.cnt) return this.alpa - ob.alpa;
+		else return ob.cnt - this.cnt;
+   	}
+}
+class Solution {
+	public String solution(String s){
+		String answer = "";
+		HashMap<Character, Integer> sH = new HashMap<>();
+		PriorityQueue<Info> pq = new PriorityQueue<>();
+		for(char x : s.toCharArray()){
+			sH.put(x, sH.getOrDefault(x, 0)+1);
+		}
+		for(char key : sH.keySet()){
+			pq.add(new Info(sH.get(key), key));
+		}
+		while(pq.size() > 1){
+			Info tmp1 = pq.poll();
+			Info tmp2 = pq.poll();
+			answer += tmp1.alpa;
+			answer += tmp2.alpa;
+			if(tmp1.cnt > 1) pq.add(new Info(tmp1.cnt - 1, tmp1.alpa));
+			if(tmp2.cnt > 1) pq.add(new Info(tmp2.cnt - 1, tmp2.alpa));
+			
+		}
+		if(pq.size() == 1) answer += pq.poll().alpa;
+		return answer;
+	}
+
+	public static void main(String[] args){
+		Solution T = new Solution();
+		System.out.println(T.solution("AAABBCDEFFG"));
+		System.out.println(T.solution("ABCDEFGAAABDEFGFFGE"));
+	}
+}
