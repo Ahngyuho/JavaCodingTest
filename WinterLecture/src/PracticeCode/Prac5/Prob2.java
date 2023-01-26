@@ -1,5 +1,7 @@
 package PracticeCode.Prac5;
 
+import java.util.HashMap;
+
 public class Prob2 {
 	String[] solution(int[] nums){
 		String[] answer = new String[nums.length];
