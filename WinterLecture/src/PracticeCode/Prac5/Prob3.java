@@ -2,11 +2,12 @@ package PracticeCode.Prac5;
 import java.util.*;
 public class Prob3 {
     public int solution(int[] nums,int k) {
+        int n = nums.length;
+        Arrays.sort(nums);
         int left = 0;
         int sum = 0;
         int answer = 0;
-        Arrays.sort(nums);
-        for(int right = 0;right<nums.length;right++){
+        for(int right = 0;right < n;right++){
             sum += nums[right];
             while(nums[right] * (right - left + 1) > sum + k){
                 sum -= nums[left];
