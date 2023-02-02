@@ -1,5 +1,7 @@
-package realCode.Prac2;
+package PracticeCode.Prac2;
+
 import java.util.*;
+
 public class Prob6 {
     //2023 02 02
     public int getTime(String time){
@@ -25,7 +27,7 @@ public class Prob6 {
         for(String x : remainTime.keySet()){
             if(remainTime.get(x) >= time) res.add(x);
         }
-        res.sort((a,b) -> a.compareTo(b));
+        res.sort(Comparator.naturalOrder());
         String[] answer = new String[res.size()];
         for(int i=0;i<res.size();i++){
             answer[i] = res.get(i);
@@ -34,7 +36,7 @@ public class Prob6 {
     }
 
     public static void main(String[] args) {
-        Prob6 T = new Prob6();
+        realCode.Prac2.Prob6 T = new realCode.Prac2.Prob6();
         System.out.println(Arrays.toString(T.solution(new String[]{"john 09:30 in", "daniel 10:05 in", "john 10:15 out", "luis 11:57 in", "john 12:03 in", "john 12:20 out", "luis 12:35 out", "daniel 15:05 out"},60)));
         System.out.println(Arrays.toString(T.solution(new String[]{"bill 09:30 in", "daniel 10:00 in", "bill 11:15 out", "luis 11:57 in", "john 12:03 in", "john 12:20 out", "luis 14:35 out", "daniel 14:55 out"},120)));
     }
