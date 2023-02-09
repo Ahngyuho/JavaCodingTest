@@ -4,7 +4,6 @@ class Solution {
 		int[][] ch = new int[2][200001];
 		Queue<Integer> Q = new LinkedList<>();
 		ch[0][s] = 1;
-		ch[1][s] = 1;
 		Q.offer(s);
 		int L = 0;
 		while(!Q.isEmpty()){

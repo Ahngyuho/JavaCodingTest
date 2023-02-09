@@ -1,6 +1,32 @@
 package PracticeCode.Prac8;
 import java.util.*;
 public class Prob4 {
+    public int solution1(int[] laser,String[] enter) {
+        int answer = 0;
+        int n = enter.length;
+        int[][] enters = new int[n][2];
+        for(int i=0;i<n;i++){
+            String s = enter[i];
+            enters[i][0] = getTime(s.split(" ")[0]);
+            enters[i][1] = Integer.parseInt(s.split(" ")[1]);
+        }
+        int eT = enters[0][0];
+        Queue<Integer> Q = new LinkedList<>();
+        int i = eT;
+        int idx = 0;
+        for(;i<=1200;i++){
+            if(Q.isEmpty() && idx < n && eT <= enters[idx][0]) eT = enters[idx][0];
+            if(idx < n && enters[idx][0] == i) {
+                Q.offer(enters[idx][1]);
+                idx++;
+            }
+            if(eT == i && !Q.isEmpty()) {
+                eT += laser[Q.poll()];
+            }
+            answer = Math.max(Q.size(),answer);
+        }
+        return answer;
+    }
     public int getTime(String time){
         int hour = Integer.parseInt(time.split(":")[0]);
         int min = Integer.parseInt(time.split(":")[1]);
@@ -39,7 +65,9 @@ public class Prob4 {
 
     public static void main(String[] args) {
         Prob4 T = new Prob4();
-        System.out.println(T.solution(new int[]{30, 20, 25, 15}, new String[]{"10:23 0", "10:40 3", "10:42 2", "10:52 3", "11:10 2"}));
-        System.out.println(T.solution(new int[]{30, 20, 25, 15}, new String[]{"10:23 0", "10:40 3", "10:42 2", "10:52 3", "15:10 0", "15:20 3", "15:22 1", "15:23 0", "15:25 0"}));
+        System.out.println(T.solution1(new int[]{30, 20, 25, 15}, new String[]{"10:23 0", "10:40 3", "10:42 2", "10:52 3", "11:10 2"}));
+        System.out.println(T.solution1(new int[]{30, 20, 25, 15}, new String[]{"10:23 0", "10:40 3", "10:42 2", "10:52 3", "15:10 0", "15:20 3", "15:22 1", "15:23 0", "15:25 0"}));
+        System.out.println(T.solution1(new int[]{30, 20, 25, 15}, new String[]{"10:20 1", "10:40 1", "11:00 1", "11:20 1",
+                "11:40 1"}));
     }
 }
