@@ -1,37 +1,70 @@
 package PracticeCode.Prac8;
 import java.util.*;
 public class Prob5 {
-    public int[] solution(int[][] tasks) {
+    public int[] solution1(int[][] tasks) {
         int n = tasks.length;
         int[] answer = new int[n];
-        int[][] tmp = new int[n][3];
-        for(int i=0;i<n;i++) {
-            tmp[i][0] = tasks[i][0];
-            tmp[i][1] = tasks[i][1];
-            tmp[i][2] = i;
+        int[][] prog = new int[n][3];
+        for(int i=0;i<n;i++){
+            prog[i][0] = tasks[i][0];
+            prog[i][1] = tasks[i][1];
+            prog[i][2] = i;
         }
-        Arrays.sort(tmp,(a,b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);
-        for(int[] x : tmp) System.out.println(x[0] + " " + x[1] + " " + x[2]);
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> a[1] == b[1] ? a[2] - b[2] : a[1] - b[1]);
-        pq.offer(new int[]{tmp[0][0],tmp[0][1],0});
-        int curTime = 0;
-        int pos = 1;
-        int idx = 0;
-        while(!pq.isEmpty()){
-            int[] p = pq.poll();
-            curTime += p[1];
-            while(pos<n && tmp[pos][0] <= curTime){
-                pq.offer(new int[]{tmp[pos][0],tmp[pos][1],pos});
-                pos++;
+        Arrays.sort(prog,(a,b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);
+        PriorityQueue<int[]> ends = new PriorityQueue<>((a, b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);
+        int j = 0,curT = 0;
+        ArrayList<Integer> res = new ArrayList<>();
+        while(j < n || !ends.isEmpty()){
+            if(ends.isEmpty()) {
+                curT = Math.max(curT, prog[j][0]);
             }
-            answer[idx] = p[2];
-            idx++;
+            for(;j<n;j++) {
+                if (prog[j][0] <= curT) ends.offer(new int[]{prog[j][1], prog[j][2]});
+                else break;
+            }
+            int[] p = ends.poll();
+            curT += p[0];
+            res.add(p[1]);
         }
+        for(int i=0;i<n;i++) answer[i] = res.get(i);
+        return answer;
+    }
+
+    public int[] solution(int[][] tasks){
+        //int[] answer = {};
+        int n = tasks.length;
+        ArrayList<Integer> res = new ArrayList<>();
+        LinkedList<int[]> programs = new LinkedList<>();
+        for(int i = 0; i < n; i++){
+            programs.add(new int[]{tasks[i][0], tasks[i][1], i});
+        }
+        programs.sort((a, b) -> a[0] - b[0]);
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);
+        int curT = 0;
+        while(!programs.isEmpty() || !pq.isEmpty()){
+            if(pq.isEmpty()) curT = Math.max(curT, programs.peek()[0]);
+            while(!programs.isEmpty() && programs.peek()[0] <= curT){
+                int[] x = programs.pollFirst();
+                pq.add(new int[]{x[1], x[2]});
+            }
+            int[] ex = pq.poll();
+            curT = curT + ex[0];
+            res.add(ex[1]);
+        }
+
+        int[] answer = new int[n];
+        for(int i = 0; i < n; i++) answer[i] = res.get(i);
+
         return answer;
     }
 
     public static void main(String[] args) {
         Prob5 T = new Prob5();
-        System.out.println(Arrays.toString(T.solution(new int[][]{{2, 3}, {1, 2}, {8, 2}, {3, 1}, {10, 2}})));
+        System.out.println(Arrays.toString(T.solution1(new int[][]{{2, 3}, {1, 2}, {4, 2}, {3, 1}})));
+        System.out.println(Arrays.toString(T.solution1(new int[][]{{5, 2}, {7, 3}, {1, 3}, {1, 5}, {2, 2}, {1, 1}})));
+        System.out.println(Arrays.toString(T.solution1(new int[][]{{1, 2}, {2, 3}, {1, 3}, {3, 3}, {8, 2}, {1, 5}, {2, 2}, {1, 1}})));
+        System.out.println(Arrays.toString(T.solution1(new int[][]{{999, 1000}, {996, 1000}, {998, 1000}, {999, 7}})));
+        System.out.println(Arrays.toString(T.solution1(new int[][]{{2, 3}, {1, 2}, {8, 2}, {3, 1}, {10, 2}})));
+
     }
 }
