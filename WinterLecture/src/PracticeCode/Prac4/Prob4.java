@@ -2,22 +2,22 @@ package PracticeCode.Prac4;
 import java.util.*;
 public class Prob4 {
     class Info implements Comparable<Info>{
-        int num;
+        int idx;
         char team;
-        int attack;
+        int power;
 
         Info(int num,char team,int attack){
-            this.num = num;
+            this.idx = num;
             this.team = team;
-            this.attack = attack;
+            this.power = attack;
         }
 
         public int compareTo(Info o){
-            return this.attack - o.attack;
+            return this.power - o.power;
         }
     }
 
-    public int[] solution1(String[] students) {
+    public int[] solution2(String[] students) {
         ArrayList<Info> list = new ArrayList<>();
         int n = students.length;
         int[] answer = new int[n];
@@ -31,19 +31,19 @@ public class Prob4 {
         HashMap<Character,Integer> nH = new HashMap<>();
         for(int i=1;i<n;i++){
             for(;j<n;j++){
-                if(list.get(j).attack < list.get(i).attack){
-                    total += list.get(j).attack;
+                if(list.get(j).power < list.get(i).power){
+                    total += list.get(j).power;
                     char x = list.get(j).team;
-                    nH.put(x,nH.getOrDefault(x,0) + list.get(j).attack);
+                    nH.put(x,nH.getOrDefault(x,0) + list.get(j).power);
                 }
                 else break;
             }
-            answer[list.get(i).num] = total - nH.getOrDefault(list.get(i).team,0);
+            answer[list.get(i).idx] = total - nH.getOrDefault(list.get(i).team,0);
         }
         return answer;
     }
 
-    public int[] solution(String[] students) {
+    public int[] solution1(String[] students) {
         HashMap<Character,ArrayList<Integer>> nH = new HashMap<>();
         int n = students.length;
         int[] answer = new int[n];
@@ -53,24 +53,50 @@ public class Prob4 {
             int b = Integer.parseInt(students[i].split(" ")[1]);
             stu[i] = new Info(i,a,b);
         }
-        Arrays.sort(stu,(a,b) -> a.attack - b.attack);
-        int sum = stu[0].attack;
+        Arrays.sort(stu,(a,b) -> a.power - b.power);
+        int sum = stu[0].power;
         nH.put(stu[0].team,new ArrayList<>());
-        nH.get(stu[0].team).add(stu[0].attack);
+        nH.get(stu[0].team).add(stu[0].power);
         for(int i=1;i<n;i++){
             if(nH.containsKey(stu[i].team)){
                 int tmpSum = sum;
                 for(int y : nH.get(stu[i].team)) tmpSum -= y;
-                answer[stu[i].num] = tmpSum;
-            }else answer[stu[i].num] = sum;
+                answer[stu[i].idx] = tmpSum;
+            }else answer[stu[i].idx] = sum;
             int j = i;
-            while(j-1 >=0 && stu[i].attack == stu[j-1].attack){
-                answer[stu[i].num] -= stu[j].attack;
+            while(j-1 >=0 && stu[i].power == stu[j-1].power){
+                answer[stu[i].idx] -= stu[j].power;
                 j--;
             }
-            sum += stu[i].attack;
+            sum += stu[i].power;
             nH.putIfAbsent(stu[i].team,new ArrayList<>());
-            nH.get(stu[i].team).add(stu[i].attack);
+            nH.get(stu[i].team).add(stu[i].power);
+        }
+        return answer;
+    }
+
+    public int[] solution(String[] students){
+        int n = students.length;
+        int[] answer = new int[n];
+        ArrayList<Info> list = new ArrayList<>();
+        for(int i = 0; i < n; i++){
+            Character a = students[i].split(" ")[0].charAt(0);
+            int b = Integer.parseInt(students[i].split(" ")[1]);
+            list.add(new Info(i, a, b));
+        }
+        Collections.sort(list);
+        HashMap<Character, Integer> Tp = new HashMap<>();
+        int j = 0, total = 0;
+        for(int i = 1; i < n; i++){
+            for( ; j < n; j++){
+                if(list.get(j).power < list.get(i).power){
+                    total += list.get(j).power;
+                    char x = list.get(j).team;
+                    Tp.put(x, Tp.getOrDefault(x, 0) + list.get(j).power);
+                }
+                else break;
+            }
+            answer[list.get(i).idx] = total - Tp.getOrDefault(list.get(i).team, 0);
         }
         return answer;
     }

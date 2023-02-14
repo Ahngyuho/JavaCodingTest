@@ -25,7 +25,7 @@ public class Prob1 {
             hs.add(x);
             nH.put(x,nH.getOrDefault(x,0) + 1);
         }
-        int answer = 1;
+        int answer = 0;
         int cnt = 1;
         for(int x : hs){
             if(nH.containsKey(x + 1)){
