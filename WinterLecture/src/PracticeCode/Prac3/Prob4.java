@@ -37,6 +37,34 @@ import java.util.*;
 //}
 import java.util.*;
 class Prob4 {
+
+    public int solution3(int[] tasks,int k) {
+        int n = tasks.length;
+        int[] tmp = new int[n+1];
+        for(int i=1;i<=n;i++) tmp[i] = tasks[i-1];
+        Arrays.sort(tmp);
+        int rest = n;
+        for(int i=1;i<=n;i++){
+            if(k < (tmp[i] - tmp[i-1]) * rest){
+                long idx = k % rest;
+                int cnt = 0;
+                for(int j=0;j<n;j++){
+                    if(tmp[i] <= tasks[j]){
+                        if(cnt == idx) return j + 1;
+                        cnt++;
+                    }
+//                    if(tasks[j] <= tmp[i]) {
+//                        if(cnt == idx) return j+1;
+//                        cnt++;
+//                    }
+                }
+            }else {
+                k -= (tmp[i] - tmp[i - 1]) * rest;
+                rest--;
+            }
+        }
+        return -1;
+    }
     public int solution2(int[] tasks,int k) {
         int n = tasks.length;
         int rest = n;
@@ -113,8 +141,8 @@ class Prob4 {
 
     public static void main(String[] args){
         Prob4 T = new Prob4();
-//        System.out.println(T.solution2(new int[]{1, 2, 3}, 5));
-        System.out.println(T.solution2(new int[]{8, 5, 2, 9, 10, 7}, 30));
-//        System.out.print(T.solution2(new int[]{8, 9, 12, 23, 45, 16, 25, 50}, 100));
+        System.out.println(T.solution3(new int[]{1, 2, 3}, 5));
+        System.out.println(T.solution3(new int[]{8, 5, 2, 9, 10, 7}, 30));
+        System.out.print(T.solution3(new int[]{8, 9, 12, 23, 45, 16, 25, 50}, 100));
     }
 }

@@ -1,6 +1,44 @@
 package PracticeCode.Prac5;
 import java.util.*;
 public class Prob5 {
+    public int solution3(String s,int k) {
+        int answer = Integer.MAX_VALUE;
+        HashMap<Character,Integer> type = new HashMap<>();
+        int n = s.length();
+        int left = 0;
+        for(int right=0;right<n;right++){
+            char x = s.charAt(right);
+            type.put(x,type.getOrDefault(x,0) + 1);
+            while(type.size() == k){
+                x = s.charAt(left);
+                answer = Math.min(answer,right - left + 1);
+//                type.put(x,type.get(x) - 1);
+//                if(type.get(x) == 0) type.remove(x);
+                if(type.get(x) == 1) type.remove(x);
+                else type.put(x,type.get(x) - 1);
+                left++;
+            }
+        }
+        return answer;
+    }
+    public int solution2(String s,int k) {
+        int n = s.length();
+        int lt = 0;
+        int answer = Integer.MAX_VALUE;
+        HashMap<Character,Integer> alphaCnt = new HashMap<>();
+        for(int rt = 0;rt < n;rt++){
+            char c = s.charAt(rt);
+            alphaCnt.put(c,alphaCnt.getOrDefault(c,0) + 1);
+            while(alphaCnt.size() == k){
+                c = s.charAt(lt);
+                answer = Math.min(answer,rt - lt + 1);
+                alphaCnt.put(c,alphaCnt.get(c) - 1);
+                if(alphaCnt.get(c) == 0) alphaCnt.remove(c);
+                lt++;
+            }
+        }
+        return answer;
+    }
     public int solution(String s,int k) {
         int answer = Integer.MAX_VALUE;
         int left = 0;
@@ -24,8 +62,10 @@ public class Prob5 {
     }
     public static void main(String[] args) {
         Prob5 T = new Prob5();
-        System.out.println(T.solution("abacbbcdede" , 5));
-        System.out.println(T.solution("acbbcdbbedeade", 4));
-        System.out.println(T.solution("abcabcabcbebef", 5));
+        System.out.println(T.solution3("abacbbcdede" , 5));
+        System.out.println(T.solution3("acbbcdbbedeade", 4));
+        System.out.println(T.solution3("abcabcabcbebef", 5));
+        System.out.println(T.solution3("aaccabcabbbbcbebef", 5));
+        System.out.println(T.solution3("afgaccfabcabbgfhbbcbetyebef", 7));
     }
 }

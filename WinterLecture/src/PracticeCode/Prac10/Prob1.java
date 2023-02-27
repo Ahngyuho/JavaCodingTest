@@ -1,5 +1,46 @@
 package PracticeCode.Prac10;
 
+class Solution2 {
+    int[] pow,student;
+    int N,answer;
+    void DFS(int s,int sum,int T){
+        boolean flag = true;
+        for(int i=0;i<N;i++){
+            if((sum & student[i]) == student[i]) {
+                flag = false;
+                break;
+            }
+        }
+        if(flag){
+            answer++;
+            for(int i=s;i<=T;i++){
+                DFS(i+1,sum + pow[i],T);
+            }
+        }
+    }
+    public int solution(int T,int[][] hate) {
+        answer = 0;
+        pow = new int[21];
+        pow[1] = 1;
+        N = hate.length;
+        student = new int[1001];
+        for(int i=2;i<=T;i++) pow[i] = pow[i-1] * 2;
+        for(int i=0;i<N;i++){
+            for(int x : hate[i]) student[i] += pow[x];
+        }
+        DFS(1,0,T);
+        return answer;
+    }
+
+    public static void main(String[] args) {
+        Solution2 T = new Solution2();
+        System.out.println(T.solution(6, new int[][]{{1}, {4, 2}, {3, 2, 6}, {5}, {3, 4, 6}}));
+        System.out.println(T.solution(6, new int[][]{{3, 1, 4}, {6, 1, 4}, {1}, {4, 1, 5, 6, 3}, {4, 2, 3}, {2, 4, 6}, {1, 6}, {2}, {4, 5, 1}}));
+        System.out.println(T.solution(7, new int[][]{{3, 1, 6}, {5}, {4, 1, 7}, {1, 7, 4, 5, 2, 3, 6}, {7, 2, 4, 3, 1, 5}, {5, 4, 2}, {7, 2}, {3, 2, 5}, {1, 3}, {1}, {2}, {2, 5, 1, 7, 3}}));
+        System.out.println(T.solution(9, new int[][]{{9, 6, 3, 1, 2}, {4, 8, 7, 9, 1, 5}, {3, 8, 5, 1, 2, 4, 9}, {8, 4, 9, 5}, {5, 6, 7, 3, 8}, {8, 3, 5, 9, 7}, {5, 2, 3}, {6}, {2, 6, 5}, {5}, {8, 9}, {3, 9}, {2, 4, 1, 3, 7, 6, 5, 8, 9}, {1, 2, 3, 7, 9, 4, 5, 8}, {3, 8, 5, 1, 4}, {7, 6, 9, 4, 1}, {1, 9, 3, 5, 7, 8, 2, 6}, {6, 4, 5}, {8, 5, 1, 6, 3, 2}, {1, 2, 8, 5}, {3}, {7, 3}}));
+    }
+}
+
 public class Prob1 {
     public int[] stu;
     public int[] t;
@@ -37,6 +78,49 @@ public class Prob1 {
 
     public static void main(String[] args) {
         Prob1 T = new Prob1();
+        System.out.println(T.solution(6, new int[][]{{1}, {4, 2}, {3, 2, 6}, {5}, {3, 4, 6}}));
+        System.out.println(T.solution(6, new int[][]{{3, 1, 4}, {6, 1, 4}, {1}, {4, 1, 5, 6, 3}, {4, 2, 3}, {2, 4, 6}, {1, 6}, {2}, {4, 5, 1}}));
+        System.out.println(T.solution(7, new int[][]{{3, 1, 6}, {5}, {4, 1, 7}, {1, 7, 4, 5, 2, 3, 6}, {7, 2, 4, 3, 1, 5}, {5, 4, 2}, {7, 2}, {3, 2, 5}, {1, 3}, {1}, {2}, {2, 5, 1, 7, 3}}));
+        System.out.println(T.solution(9, new int[][]{{9, 6, 3, 1, 2}, {4, 8, 7, 9, 1, 5}, {3, 8, 5, 1, 2, 4, 9}, {8, 4, 9, 5}, {5, 6, 7, 3, 8}, {8, 3, 5, 9, 7}, {5, 2, 3}, {6}, {2, 6, 5}, {5}, {8, 9}, {3, 9}, {2, 4, 1, 3, 7, 6, 5, 8, 9}, {1, 2, 3, 7, 9, 4, 5, 8}, {3, 8, 5, 1, 4}, {7, 6, 9, 4, 1}, {1, 9, 3, 5, 7, 8, 2, 6}, {6, 4, 5}, {8, 5, 1, 6, 3, 2}, {1, 2, 8, 5}, {3}, {7, 3}}));
+    }
+}
+
+class Solution {
+    int[] pow, student;
+    int answer, N;
+    public void DFS(int s, int sum, int T){
+        boolean flag = true;
+        for(int i = 0; i < N; i++){
+            if((sum & student[i]) == student[i]){
+                flag = false;
+                break;
+            }
+        }
+        if(flag){
+            answer++;
+        }
+        for(int i = s; i <= T ; i++){
+            DFS(i+1, sum+pow[i], T);
+        }
+    }
+    public int solution(int T, int[][] hate){
+        answer = 0;
+        pow = new int[21];
+        student = new int[100];
+        N = hate.length;
+        pow[1] = 1;
+        for(int i = 2; i <= T; i++) pow[i] = pow[i-1]*2;
+        for(int i = 0; i < N; i++){
+            for(int x : hate[i]){
+                student[i] += pow[x];
+            }
+        }
+        DFS(1, 0, T);
+        return answer;
+    }
+
+    public static void main(String[] args){
+        Solution T = new Solution();
         System.out.println(T.solution(6, new int[][]{{1}, {4, 2}, {3, 2, 6}, {5}, {3, 4, 6}}));
         System.out.println(T.solution(6, new int[][]{{3, 1, 4}, {6, 1, 4}, {1}, {4, 1, 5, 6, 3}, {4, 2, 3}, {2, 4, 6}, {1, 6}, {2}, {4, 5, 1}}));
         System.out.println(T.solution(7, new int[][]{{3, 1, 6}, {5}, {4, 1, 7}, {1, 7, 4, 5, 2, 3, 6}, {7, 2, 4, 3, 1, 5}, {5, 4, 2}, {7, 2}, {3, 2, 5}, {1, 3}, {1}, {2}, {2, 5, 1, 7, 3}}));

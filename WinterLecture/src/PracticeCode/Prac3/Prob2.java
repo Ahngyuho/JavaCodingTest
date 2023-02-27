@@ -3,6 +3,23 @@ package PracticeCode.Prac3;
 import java.util.*;
 
 public class Prob2 {
+    public int[] solution2(int[] nums) {
+        HashMap<Integer,Integer> hunsu = new HashMap<>();
+        Arrays.sort(nums);
+        ArrayList<Integer> tmp = new ArrayList<>();
+        for(int x : nums){
+            if(!hunsu.containsKey(x)) {
+                tmp.add(x);
+                hunsu.put(x * 2,hunsu.getOrDefault(x * 2,0) + 1);
+            }else {
+                hunsu.put(x,hunsu.get(x) - 1);
+                if(hunsu.get(x) == 0) hunsu.remove(x);
+            }
+        }
+        int[] answer = new int[tmp.size()];
+        for(int i=0;i<tmp.size();i++) answer[i] = tmp.get(i);
+        return answer;
+    }
     public int[] solution(int[] nums) {
         int[] answer;
         ArrayList<Integer> tmp = new ArrayList<>();
@@ -42,15 +59,15 @@ public class Prob2 {
 
     public static void main(String[] args) {
         Prob2 T = new Prob2();
-        for(int x : T.solution1(new int[]{1, 10, 2, 3, 5, 6})){
+        for(int x : T.solution2(new int[]{1, 10, 2, 3, 5, 6})){
             System.out.print(x + " ");
         }
         System.out.println();
-        for(int x : T.solution1(new int[]{1, 1, 6, 2, 2, 7, 3, 14})){
+        for(int x : T.solution2(new int[]{1, 1, 6, 2, 2, 7, 3, 14})){
             System.out.print(x + " ");
         }
         System.out.println();
-        for(int x : T.solution1(new int[]{14, 4, 2, 6, 3, 10, 10, 5, 5, 7, 7, 14})){
+        for(int x : T.solution2(new int[]{14, 4, 2, 6, 3, 10, 10, 5, 5, 7, 7, 14})){
             System.out.print(x + " ");
         }
     }

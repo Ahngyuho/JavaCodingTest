@@ -17,6 +17,32 @@ public class Prob4 {
         }
     }
 
+    public int[] solution3(String[] students) {
+        int n = students.length;
+        int[] answer = new int[n];
+        ArrayList<Info> stu = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            char a = students[i].split(" ")[0].charAt(0);
+            int b = Integer.parseInt(students[i].split(" ")[1]);
+            stu.add(new Info(i,a,b));
+        }
+        Collections.sort(stu);
+        HashMap<Character,Integer> Tp = new HashMap<>();
+        int sum = 0,j = 0;
+        for(int i=0;i<n;i++){
+            for(;j<n;j++){
+                if(stu.get(i).power > stu.get(j).power){
+                    char t = stu.get(j).team;
+                    sum += stu.get(j).power;
+                    Tp.put(t, Tp.getOrDefault(t, 0) + stu.get(j).power);
+                } else break;
+            }
+            char t = stu.get(i).team;
+            answer[stu.get(i).idx] = sum - Tp.getOrDefault(t,0);
+        }
+        return answer;
+    }
+
     public int[] solution2(String[] students) {
         ArrayList<Info> list = new ArrayList<>();
         int n = students.length;
@@ -103,9 +129,9 @@ public class Prob4 {
 
     public static void main(String[] args) {
         Prob4 T = new Prob4();
-        System.out.println(Arrays.toString(T.solution1(new String[]{"a 20", "b 12", "a 10", "c 11", "e 12"})));
-        System.out.println(Arrays.toString(T.solution1(new String[]{"a 17", "b 12", "a 10", "c 11", "b 24", "a 25", "b 12"})));
-        System.out.println(Arrays.toString(T.solution1(new String[]{"b 20", "c 15", "a 200", "b 11", "b 24", "a 25", "b 12"})));
-        System.out.println(Arrays.toString(T.solution1(new String[]{"a 30", "a 25", "a 25", "b 20", "b 25", "a 25", "b 30"})));
+        System.out.println(Arrays.toString(T.solution3(new String[]{"a 20", "b 12", "a 10", "c 11", "e 12"})));
+        System.out.println(Arrays.toString(T.solution3(new String[]{"a 17", "b 12", "a 10", "c 11", "b 24", "a 25", "b 12"})));
+        System.out.println(Arrays.toString(T.solution3(new String[]{"b 20", "c 15", "a 200", "b 11", "b 24", "a 25", "b 12"})));
+        System.out.println(Arrays.toString(T.solution3(new String[]{"a 30", "a 25", "a 25", "b 20", "b 25", "a 25", "b 30"})));
     }
 }
