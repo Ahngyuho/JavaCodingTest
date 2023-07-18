@@ -19,16 +19,32 @@ public class Prob8 {
         Queue<Point> Q = new LinkedList<>();
         Q.offer(new Point(0, 0));
         board[0][0] = 1;
+//        while (!Q.isEmpty()) {
+//            Point tmp = Q.poll();
+//            for (int i = 0; i < 4; i++) {
+//                int nx = tmp.x + dx[i];
+//                int ny = tmp.y + dy[i];
+//
+//                if (nx >= 0 && nx < 7 && ny >= 0 && ny < 7 && board[nx][ny] == 0) {
+//                    board[nx][ny] = 1;
+//                    Q.offer(new Point(nx, ny));
+//                    dis[nx][ny] = dis[tmp.x][tmp.y] + 1;
+//                }
+//            }
+//        }
         while (!Q.isEmpty()) {
-            Point tmp = Q.poll();
-            for (int i = 0; i < 4; i++) {
-                int nx = tmp.x + dx[i];
-                int ny = tmp.y + dy[i];
+            int len = Q.size();
+            for (int i = 0; i < len; i++) {
+                Point tmp = Q.poll();
+                for (int k = 0; k < 4; k++) {
+                    int x = tmp.x + dx[k];
+                    int y = tmp.y + dy[k];
 
-                if (nx >= 0 && nx < 7 && ny >= 0 && ny < 7 && board[nx][ny] == 0) {
-                    board[nx][ny] = 1;
-                    Q.offer(new Point(nx, ny));
-                    dis[nx][ny] = dis[tmp.x][tmp.y] + 1;
+                    if(x < 0 || x >= 7 || y < 0 || y >= 7 || board[x][y] == 1) continue;
+
+                    board[x][y] = 1;
+                    Q.offer(new Point(x, y));
+                    dis[x][y] = dis[tmp.x][tmp.y] + 1;
                 }
             }
         }

@@ -19,10 +19,12 @@ import java.util.*;
 3
 * */
 public class Prob7 {
-    public int solution(int s, int e) {
+    boolean[] ch = new boolean[100001];
+
+    public int BFS(int s,int e) {
         Queue<Integer> Q = new LinkedList<>();
-        int[] ch = new int[10001];
-        Q.offer(s);
+        Q.add(s);
+        ch[s] = true;
         int L = 0;
         while (!Q.isEmpty()) {
             int len = Q.size();
@@ -30,16 +32,20 @@ public class Prob7 {
                 int x = Q.poll();
                 for (int nx : new int[]{x + 1, x - 1, x + 5}) {
                     if(nx == e) return L + 1;
-                    if (nx >= 1 && nx <= 10000 && ch[nx] == 0) {
-                        ch[nx] = 1;
+                    if(nx >= 0 && nx <= 100000 && ch[nx] == false) {
                         Q.offer(nx);
+                        ch[nx] = true;
                     }
                 }
             }
             L++;
         }
-
-        return 0;
+        return -1;
+    }
+    public int solution(int s, int e) {
+        int answer = 0;
+        answer = BFS(8, 3);
+        return answer;
     }
 
     public static void main(String[] args) {

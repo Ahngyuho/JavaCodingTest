@@ -1,6 +1,51 @@
 package PracticeCode.Prac5;
 import java.util.*;
 public class Prob5 {
+    public int solution6(String s, int k) {
+        int answer = Integer.MAX_VALUE;
+        HashMap<Character,Integer> nH = new HashMap<>();
+        int left=0;
+        for(int right = 0;right<s.length();right++){
+            nH.put(s.charAt(right),nH.getOrDefault(s.charAt(right),0) + 1);
+            while(nH.size() == k){
+                answer = Math.min(answer,right - left + 1);
+                char lc = s.charAt(left);
+                nH.put(lc,nH.get(lc) - 1);
+                if(nH.get(lc) ==0 ) nH.remove(lc);
+                left++;
+            }
+        }
+        return answer;
+    }
+    public int solution5(String s, int k) {
+        int answer = Integer.MAX_VALUE;
+        HashMap<Character,Integer> nH = new HashMap<>();
+        int left = 0;
+        for(int right = 0;right<s.length();right++){
+            nH.put(s.charAt(right),nH.getOrDefault(s.charAt(right),0) + 1);
+            while(nH.size() == k){
+                answer = Math.min(answer, right - left + 1);
+                nH.put(s.charAt(left),nH.get(s.charAt(left)) - 1);
+                if(nH.get(s.charAt(left)) == 0) nH.remove(s.charAt(left));
+                left++;
+            }
+        }
+        return answer;
+    }
+    public int solution4(String s, int k) {
+        int answer = Integer.MAX_VALUE;
+        HashMap<Character, Integer> nH = new HashMap<>();
+        int left = 0;
+        for (int right = 0; right < s.length(); right++) {
+            while(nH.size() == k){
+                answer = Math.min(answer, right - left + 1);
+                nH.put(s.charAt(left),nH.get(s.charAt(left) - 1));
+                if(nH.get(s.charAt(left)) == 0) nH.remove(s.charAt(left));
+                left++;
+            }
+        }
+        return answer;
+    }
     public int solution3(String s,int k) {
         int answer = Integer.MAX_VALUE;
         HashMap<Character,Integer> type = new HashMap<>();
@@ -62,10 +107,10 @@ public class Prob5 {
     }
     public static void main(String[] args) {
         Prob5 T = new Prob5();
-        System.out.println(T.solution3("abacbbcdede" , 5));
-        System.out.println(T.solution3("acbbcdbbedeade", 4));
-        System.out.println(T.solution3("abcabcabcbebef", 5));
-        System.out.println(T.solution3("aaccabcabbbbcbebef", 5));
-        System.out.println(T.solution3("afgaccfabcabbgfhbbcbetyebef", 7));
+        System.out.println(T.solution6("abacbbcdede" , 5));
+        System.out.println(T.solution6("acbbcdbbedeade", 4));
+        System.out.println(T.solution6("abcabcabcbebef", 5));
+        System.out.println(T.solution6("aaccabcabbbbcbebef", 5));
+        System.out.println(T.solution6("afgaccfabcabbgfhbbcbetyebef", 7));
     }
 }

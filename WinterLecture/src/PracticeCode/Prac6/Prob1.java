@@ -1,156 +1,74 @@
 package PracticeCode.Prac6;
 import java.util.*;
+
+/*
+* 팰린드롬의 경우수
+매개변수 s에 문자열이 주어지면 이 문자열의 문자들을 가지고 만들 수 있는 팬린드롬의 경우
+들을 배열에 담아 반환하는 프로그램을 작성하세요. 팰린드롬의 순서는 상관없습니다.
+만약 팰린드롬이 만들어 지지 않을 경우 빈배열을 반환합니다.
+* */
+
 public class Prob1 {
     LinkedList<Character> tmp;
     HashMap<Character,Integer> sH;
     ArrayList<String> res;
     int len;
-    public void DFS1(){
-        if(len == tmp.size()){
-            String t = "";
-            for(char x : tmp) t += x;
-            res.add(t);
-        }else{
-            if(sH.isEmpty()) return;
-            for(char x : sH.keySet()){
-                tmp.addLast(x);
-                tmp.addFirst(x);
-                sH.put(x,sH.get(x) - 2);
-                DFS1();
-                tmp.pollLast();
-                tmp.pollFirst();
-                sH.put(x,sH.get(x) + 2);
-            }
-        }
-    }
-    public String[] solution3(String s) {
-        sH = new HashMap<>();
-        res = new ArrayList<>();
-        tmp = new LinkedList<>();
-        len = s.length();
-        for(char x : s.toCharArray()) sH.put(x,sH.getOrDefault(x,0) + 1);
-        int oddCnt = 0;
-        char oddChar = ' ';
-        for(char x : sH.keySet()){
-            if(sH.get(x) % 2 == 1) {
-                oddCnt++;
-                oddChar = x;
-            }
-            if(oddCnt > 1) return new String[]{};
-        }
-        if(!(oddChar == ' ')) {
-            tmp.add(oddChar);
-            if(sH.get(oddChar) == 1) sH.remove(oddChar);
-            else sH.put(oddChar,sH.get(oddChar) - 1);
-        }
-        DFS1();
-        String[] answer = new String[res.size()];
-        for(int i=0;i<res.size();i++) answer[i] = res.get(i);
-        return answer;
-    }
-    //2023 01 31
-//    LinkedList<Character> list;
-//    HashMap<Character,Integer> nH;
-//    char[] alpha;
-//    ArrayList<String> res;
-//    public void DFS(int size){
-//        if(list.size() == size){
-//            char[] tmp = new char[list.size()];
-//            for(int i=0;i<list.size();i++)tmp[i] = list.get(i);
-//            res.add(String.valueOf(tmp));
-//        }else{
-//            for(int i=0;i<nH.size();i++){
-//                if(nH.get(alpha[i]) == 0) continue;
-//                list.addFirst(alpha[i]);
-//                list.addLast(alpha[i]);
-//                nH.put(alpha[i],nH.get(alpha[i]) - 2);
-//                DFS(size);
-//                list.pollFirst();
-//                list.pollLast();
-//                nH.put(alpha[i],nH.get(alpha[i]) + 2);
-//            }
-//        }
-//    }
-//    public String[] solution(String s) {
-//        res = new ArrayList<>();
-//        String[] answer = {};
-//        nH = new HashMap<>();
-//        list = new LinkedList<>();
-//        for(char x : s.toCharArray()){
-//            nH.put(x,nH.getOrDefault(x,0) + 1);
-//        }
-//        int oddCnt = 0;
-//        char oddChar = '0';
-//        for(char x : nH.keySet()) {
-//            if (nH.get(x) % 2 == 1) {
-//                oddCnt++;
-//                oddChar = x;
-//            }
-//            if (oddCnt >= 2) return new String[]{};
-//        }
-//        if(nH.containsKey(oddChar)) {
-//            if(nH.get(oddChar) == 1) nH.remove(oddChar);
-//            else nH.put(oddChar, nH.get(oddChar) - 1);
-//            list.add(oddChar);
-//        }
-//        alpha = new char[nH.size()];
-//        int idx = 0;
-//        for(char x : nH.keySet()){
-//            alpha[idx++] = x;
-//        }
-//        DFS(s.length());
-//        answer = new String[res.size()];
-//        for(int i=0;i<res.size();i++) {
-//            answer[i] = res.get(i);
-//            System.out.print(answer[i] + " ");
-//        }
-//        return answer;
-//    }
-
-    public void DFS(){
-        if(tmp.size() == len){
-            String Ts = "";
-            for(char x : tmp) Ts += x;
-            res.add(Ts);
-        }else{
-            for(char x : sH.keySet()){
-                if(sH.get(x) == 0) continue;
-                tmp.addLast(x);
-                tmp.addFirst(x);
-                sH.put(x,sH.get(x) - 2);
-                DFS();
-                tmp.pollLast();
-                tmp.pollFirst();
-                sH.put(x,sH.get(x) + 2);
-            }
-        }
-    }
+    int count = 0;
     public String[] solution(String s) {
         String[] answer;
-        tmp = new LinkedList<>();
-        sH = new HashMap<>();
-        res = new ArrayList<>();
         len = s.length();
+        System.out.println(s);
+        sH = new HashMap<>();
+        tmp = new LinkedList<>();
+        res = new ArrayList<>();
         for(char x : s.toCharArray()){
             sH.put(x,sH.getOrDefault(x,0) + 1);
         }
-        char t = ' ';
-        int cnt = 0;
-        for(char x : sH.keySet()){
-            if(sH.get(x) % 2 == 1) {cnt++;t=x;}
-            if(cnt > 1) return new String[]{};
+
+        int odd = 0;
+        char mid = '#';
+        for(char key : sH.keySet()){
+            if(sH.get(key) % 2 == 1) {mid = key;odd++;}
         }
-        if(t != ' '){
-            tmp.add(t);
-            sH.put(t,sH.get(t) - 1);
+        if(odd > 1) return new String[]{};
+        if(odd == 1){
+            tmp.add(mid);
+            sH.put(mid,sH.get(mid) - 1);
         }
         DFS();
         answer = new String[res.size()];
         for(int i=0;i<res.size();i++) answer[i] = res.get(i);
+        System.out.println(count);
         return answer;
     }
 
-
+    public void DFS(){
+        if(tmp.size() ==  len){
+            count++;
+            String st = "";
+            for(char x : tmp) {
+                st += x;
+                System.out.print(x + " ");
+            }
+            System.out.println();
+            res.add(st);
+        }else{
+            for(char key : sH.keySet()){
+                if(sH.get(key) == 0) {
+                    System.out.println("what: " + key + " ");
+                    continue;
+                }
+                tmp.add(0,key);
+                tmp.add(key);
+                System.out.println(tmp.get(0) + " " + tmp.getLast() + " ");
+                sH.put(key,sH.get(key) - 2);
+                DFS();
+                tmp.pollFirst();
+                tmp.pollLast();
+                sH.put(key,sH.get(key) + 2);
+            }
+        }
+    }
 
     public static void main(String[] args) {
         Prob1 T = new Prob1();

@@ -1,6 +1,24 @@
 package PracticeCode.Prac4;
 import java.util.*;
 public class Prob3 {
+    public int solution3(int[] plantTime, int[] growTime) {
+        int answer = 0;
+        int n = plantTime.length;
+        int[][] list = new int[n][2];
+        for(int i=0;i<n;i++){
+            list[i][0] = plantTime[i];
+            list[i][1] = growTime[i];
+        }
+
+        Arrays.sort(list,(a,b) -> b[1] - a[1]);
+        int start = 0, end = 0;
+        for (int[] x : list) {
+            end = start + x[0] + x[1];
+            answer = Math.max(answer, end);
+            start += x[0];
+        }
+        return answer;
+    }
     public int solution2(int[] plantTime,int[] growTime) {
         int n = plantTime.length;
         int[][] list = new int[n][2];

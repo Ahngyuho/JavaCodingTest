@@ -111,6 +111,9 @@ public class Prob4 {
             list.add(new Info(i, a, b));
         }
         Collections.sort(list);
+        for (Info x : list) {
+            System.out.println(x.power);
+        }
         HashMap<Character, Integer> Tp = new HashMap<>();
         int j = 0, total = 0;
         for(int i = 1; i < n; i++){
@@ -129,7 +132,7 @@ public class Prob4 {
 
     public static void main(String[] args) {
         Prob4 T = new Prob4();
-        System.out.println(Arrays.toString(T.solution3(new String[]{"a 20", "b 12", "a 10", "c 11", "e 12"})));
+        System.out.println(Arrays.toString(T.solution(new String[]{"a 20", "b 12", "a 10", "c 11", "e 12"})));
         System.out.println(Arrays.toString(T.solution3(new String[]{"a 17", "b 12", "a 10", "c 11", "b 24", "a 25", "b 12"})));
         System.out.println(Arrays.toString(T.solution3(new String[]{"b 20", "c 15", "a 200", "b 11", "b 24", "a 25", "b 12"})));
         System.out.println(Arrays.toString(T.solution3(new String[]{"a 30", "a 25", "a 25", "b 20", "b 25", "a 25", "b 30"})));

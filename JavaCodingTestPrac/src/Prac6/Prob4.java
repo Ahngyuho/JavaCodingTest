@@ -15,13 +15,11 @@ public class Prob4 {
     static int n,m;
 
     void DFS(int L) {
-        if(L == m){
-            for (int x : pm) {
-                System.out.print(x+ " ");
-            }
+        if (L == m) {
+            for(int x : pm) System.out.print(x + " ");
             System.out.println();
-        }else{
-            for (int i = 1; i <= n; i++) {
+        }else {
+            for (int i = 1; i < n; i++) {
                 pm.push(i);
                 DFS(L + 1);
                 pm.pop();
@@ -30,9 +28,9 @@ public class Prob4 {
     }
 
     public static void main(String[] args) {
-        n = 7;
-        m = 7;
-        Prob4 T = new Prob4();
-        T.DFS(0);
+        n=5;
+        m=3;
+        Prob4 s = new Prob4();
+        s.DFS(0);
     }
 }
