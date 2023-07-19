@@ -38,6 +38,9 @@ import java.util.*;
 import java.util.*;
 class Prob4 {
     public int solution5(int[] tasks, long k) {
+        int[] sT = new int[tasks.length + 1];
+        System.arraycopy(sT, 0, sT, 1, tasks.length);
+        Arrays.sort(sT);
 
         return -1;
     }

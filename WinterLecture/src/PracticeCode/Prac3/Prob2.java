@@ -3,6 +3,36 @@ package PracticeCode.Prac3;
 import java.util.*;
 
 public class Prob2 {
+    public static void main(String[] args) {
+        Prob2 T = new Prob2();
+        for(int x : T.solution5(new int[]{1, 10, 2, 3, 5, 6})){
+            System.out.print(x + " ");
+        }
+        System.out.println();
+        for(int x : T.solution5(new int[]{1, 1, 6, 2, 2, 7, 3, 14})){
+            System.out.print(x + " ");
+        }
+        System.out.println();
+        for(int x : T.solution5(new int[]{14, 4, 2, 6, 3, 10, 10, 5, 5, 7, 7, 14})){
+            System.out.print(x + " ");
+        }
+    }
+
+    public int[] solution5(int[] nums) {
+        int[] answer = new int[nums.length / 2];
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int x : nums) map.put(x, map.getOrDefault(x, 0) + 1);
+        int idx=0;
+        Arrays.sort(nums);
+        for(int x : nums){
+            if(map.get(x) == 0) continue;
+            answer[idx] = x;
+            idx++;
+            map.put(x,map.get(x) - 1);
+            map.put(x * 2,map.get(x * 2) - 1);
+        }
+        return answer;
+    }
     public int[] solution4(int[] nums){
         //배열에는 순수 자신의 원래 가지고 있던 값들에 * 2 가 추가된 값들이 들어있다.
         //정렬을 해준 후 해당 값이 map 에 존재하면 answer 에 추가
@@ -91,18 +121,5 @@ public class Prob2 {
         return answer;
     }
 
-    public static void main(String[] args) {
-        Prob2 T = new Prob2();
-        for(int x : T.solution3(new int[]{1, 10, 2, 3, 5, 6})){
-            System.out.print(x + " ");
-        }
-        System.out.println();
-        for(int x : T.solution3(new int[]{1, 1, 6, 2, 2, 7, 3, 14})){
-            System.out.print(x + " ");
-        }
-        System.out.println();
-        for(int x : T.solution3(new int[]{14, 4, 2, 6, 3, 10, 10, 5, 5, 7, 7, 14})){
-            System.out.print(x + " ");
-        }
-    }
+
 }
