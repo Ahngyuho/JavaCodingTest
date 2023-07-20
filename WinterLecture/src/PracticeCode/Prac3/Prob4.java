@@ -37,10 +37,64 @@ import java.util.*;
 //}
 import java.util.*;
 class Prob4 {
+    public static void main(String[] args){
+        Prob4 T = new Prob4();
+        System.out.println(T.solution6(new int[]{1, 2, 3}, 5));
+        System.out.println(T.solution6(new int[]{8, 5, 2, 9, 10, 7}, 30));
+        System.out.print(T.solution6(new int[]{8, 9, 12, 23, 45, 16, 25, 50}, 100));
+    }
+
+    public int solution6(int[] tasks, long k) {
+        int[] sT = new int[tasks.length + 1];
+        System.arraycopy(tasks, 0, sT, 1, tasks.length);
+        Arrays.sort(sT);
+        int rest = tasks.length;
+        //이 for 문의 목적은 정렬된 sT 배열을 통해 K 시간안에 확실히 끝나는 작업을 골라내는 것이다.
+        //1번 입력 예제에서는 2,5 가 확실히 걸러진다. 그러면 현재 sT[2]인 값 7이상의 값을 가진
+        //idx 중에서 정답이 있다는 것
+        for(int i=1;i<sT.length;i++){
+            if(rest * (sT[i] - sT[i - 1]) > k){
+                //중요한 건 위치다. 여기 도착했다는 것은
+                long idx = k % rest;
+                int cnt = 0;
+                //실제 위치 찾기
+                for (int j = 0; j < tasks.length; j++) {
+                    //걸러지고 남은 정보는 sT[i]가 들고 있다.
+                    if (tasks[j] >= sT[i]) {
+                        if (cnt == idx) return j + 1;
+                        cnt++;
+                    }
+                }
+            }else{
+                k -= (rest * (sT[i] - sT[i - 1]));
+                rest--;
+            }
+        }
+        return -1;
+    }
+
     public int solution5(int[] tasks, long k) {
         int[] sT = new int[tasks.length + 1];
-        System.arraycopy(sT, 0, sT, 1, tasks.length);
+        System.arraycopy(tasks, 0, sT, 1, tasks.length);
         Arrays.sort(sT);
+
+        int rest = tasks.length;
+
+        for (int i = 1; i < sT.length; i++) {
+            if(rest * (sT[i] - sT[i - 1]) > k){
+                long idx = k % rest;
+                int cnt = 0;
+                for (int j = 0; j < tasks.length; j++) {
+                    if (tasks[j] >= sT[i]) {
+                        if(cnt == idx) return j+1;
+                        cnt++;
+                    }
+                }
+            }else {
+                k -= (rest * (sT[i] - sT[i - 1]));
+                rest--;
+            }
+        }
 
         return -1;
     }
@@ -180,10 +234,5 @@ class Prob4 {
         return -1;
     }
 
-    public static void main(String[] args){
-        Prob4 T = new Prob4();
-        System.out.println(T.solution4(new int[]{1, 2, 3}, 5));
-        System.out.println(T.solution4(new int[]{8, 5, 2, 9, 10, 7}, 30));
-        System.out.print(T.solution4(new int[]{8, 9, 12, 23, 45, 16, 25, 50}, 100));
-    }
+
 }
