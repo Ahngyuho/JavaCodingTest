@@ -1,6 +1,8 @@
 package Sorting;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 public class MergeSort {
     int[] sorted;
@@ -34,22 +36,23 @@ public class MergeSort {
     public void divide(int[] arr, int left, int right) {
         if(left < right){
             int mid = (left + right) / 2;
+
             divide(arr,left,mid);
-            divide(arr,mid + 1,right);
+            divide(arr, mid + 1, right);
 
             int p1 = left;
             int p2 = mid + 1;
             int p3 = left;
-            while(p1 <= mid && p2 <= right) {
-                if (arr[p1] <= arr[p2]) sorted[p3++] = arr[p1++];
+
+            while(p1 <= mid && p2 <= right){
+                if(arr[p1] <= arr[p2]) sorted[p3++] = arr[p1++];
                 else sorted[p3++] = arr[p2++];
             }
-            while(p1 <= mid) sorted[p3++] = arr[p1++];
-            while(p2 <= right) sorted[p3++] = arr[p2++];
 
-            for (int i = left; i <= right; i++) {
-                arr[i] = sorted[i];
-            }
+            while(p1 <= mid) sorted[p3++] = arr[p1++];
+            while(p2 <=right) sorted[p3++] = arr[p2++];
+
+            for (int i = left; i <= right; i++) arr[i] = sorted[i];
         }
     }
 

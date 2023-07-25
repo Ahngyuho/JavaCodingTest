@@ -9,11 +9,27 @@ import java.util.*;
 * */
 
 public class Prob1 {
+    public static void main(String[] args) {
+        Prob1 T = new Prob1();
+        System.out.println(Arrays.toString(T.solution("aaaabb")));
+        System.out.println(Arrays.toString(T.solution("abbcc")));
+        System.out.println(Arrays.toString(T.solution("abbccee")));
+        System.out.println(Arrays.toString(T.solution("abbcceee")));
+    }
     LinkedList<Character> tmp;
     HashMap<Character,Integer> sH;
     ArrayList<String> res;
     int len;
     int count = 0;
+
+    public String[] solution1(String s){
+        return new String[]{};
+    }
+
+    public void DFS1(){
+
+    }
+
     public String[] solution(String s) {
         String[] answer;
         len = s.length();
@@ -70,11 +86,5 @@ public class Prob1 {
         }
     }
 
-    public static void main(String[] args) {
-        Prob1 T = new Prob1();
-        System.out.println(Arrays.toString(T.solution("aaaabb")));
-        System.out.println(Arrays.toString(T.solution("abbcc")));
-        System.out.println(Arrays.toString(T.solution("abbccee")));
-        System.out.println(Arrays.toString(T.solution("abbcceee")));
-    }
+
 }
