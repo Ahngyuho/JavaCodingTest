@@ -1,4 +1,4 @@
-package realCode.Prac3;
+package realCode.Sorting;
 
 import java.util.*;
 
