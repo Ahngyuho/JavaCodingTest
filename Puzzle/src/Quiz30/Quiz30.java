@@ -7,6 +7,7 @@ public class Quiz30 {
         }
         int cnt = 0;
         // 2구 탭 처리
+        System.out.println(remain + " " + cnt);
         for (int i = 1; i <= remain / 2; i++) {
             if (remain - i == i) {
                 cnt += setTap(i) * (setTap(i) + 1) / 2;
@@ -30,6 +31,7 @@ public class Quiz30 {
                 }
             }
         }
+        System.out.println(remain + " " + cnt);
         return cnt;
     }
 
